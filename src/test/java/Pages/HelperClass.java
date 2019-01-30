@@ -42,12 +42,14 @@ public class HelperClass {
                 .ignoring(StaleElementReferenceException.class);
     }
 
+
     public void sendKeys(List<WebElement> element, int i, String string){
         element.get(i).sendKeys(string);
     }
 
     public void chooseFromList(List<WebElement> element1, int i,WebElement element2){
         element1.get(i).click();
+        getWebDriverWait();
         element2.click();
 
     }
