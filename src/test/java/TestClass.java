@@ -17,6 +17,10 @@ public class TestClass {
     FileReaderClass readerClass = new FileReaderClass();
     private String credentialsDirectory = "./src/credentials";
 
+
+
+
+
     @BeforeTest
     public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
@@ -27,6 +31,7 @@ public class TestClass {
         options.addArguments("--no-sandbox");
         driver = new ChromeDriver(options);
         driver.get(readerClass.readFromFile(credentialsDirectory,0));
+
     }
 
     @Test(description = "Login with credentials")
@@ -49,8 +54,17 @@ public class TestClass {
         createGroup.sendToPartners();
     }
 
+    @Test(dependsOnMethods = {"createGroup"}, description = "Created group checking")
+    public void checkGroup() throws IOException {
+        ManageGroups manageGroups = new ManageGroups(driver);
+        Initial initial = new Initial(driver);
+        initial.toManageGroups();
+        manageGroups.searchGroup();
+
+    }
+
     @AfterTest
     public void exit () {
-        driver.quit();
+        //driver.quit();
     }
 }

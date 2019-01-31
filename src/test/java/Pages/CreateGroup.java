@@ -58,10 +58,12 @@ public class CreateGroup {
     public CreateGroup(WebDriver driver){
         this.driver=driver;
         PageFactory.initElements(driver,this);
-    }
 
+    }
     HelperClass helper = new HelperClass(driver);
     FileReaderClass readerClass = new FileReaderClass();
+
+
 
     public void groupDetails() throws IOException, InterruptedException {
         helper.implicitWait(driver);

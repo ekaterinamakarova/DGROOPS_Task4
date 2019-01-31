@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 public class Initial {
 
     @FindBy(css = "a[href='/welcome/sign-in']") private WebElement signStr;
+    @FindBy(css = "svg[title='Manage Groups']") private WebElement manageGroupsIcon;
 
     WebDriver driver;
     public  Initial(WebDriver driver){
@@ -18,4 +19,10 @@ public class Initial {
     public void toSignPage(){
         signStr.click();
     }
+
+    public void toManageGroups(){
+        manageGroupsIcon.click();
+    }
+
+
 }
