@@ -8,10 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 import java.io.IOException;
 
 public class ManageGroups {
-
+    WebDriver driver;
     @FindBy(css = "input[placeholder='Search by keyword']") private WebElement search;
 
-    WebDriver driver;
+
 
     public ManageGroups(WebDriver driver){
         this.driver=driver;
