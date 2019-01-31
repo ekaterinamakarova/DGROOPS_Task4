@@ -43,6 +43,7 @@ public class TestClass {
         CreateGroup createGroup= new CreateGroup(driver);
         main.toCreateGroupPage();
         createGroup.groupDetails();
+        createGroup.destinationDetails();
 
 
     }

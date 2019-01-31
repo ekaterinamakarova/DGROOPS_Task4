@@ -1,9 +1,7 @@
 package Pages;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -28,6 +26,10 @@ public class HelperClass {
         return getWebDriverWait().until(ExpectedConditions.stalenessOf(element));
     }
 
+    public Boolean waitInvisible(String locator){
+        return getWebDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
+    }
+
 
     public void implicitWait(WebDriver driver){
         driver.manage().timeouts().implicitlyWait(5,SECONDS);
@@ -36,21 +38,27 @@ public class HelperClass {
 
     public Wait<WebDriver> getWebDriverWait() {
         return (Wait<WebDriver>) new FluentWait<>(driver)
-                .withTimeout(15, SECONDS)
+                .withTimeout(30, SECONDS)
                 .pollingEvery(250, MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class);
     }
 
-
-    public void sendKeys(List<WebElement> element, int i, String string){
-        element.get(i).sendKeys(string);
+    private void scrollToElement(WebElement element){
+        Actions actions=new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 
-    public void chooseFromList(List<WebElement> element1, int i,WebElement element2){
-        element1.get(i).click();
-        getWebDriverWait();
-        element2.click();
+
+    public void sendKeys(WebElement element, String string){
+        element.sendKeys(string);
+    }
+
+    public void chooseFromList(WebElement cathegory,WebElement element) throws InterruptedException {
+        cathegory.click();
+        element.click();
 
     }
+
 }
