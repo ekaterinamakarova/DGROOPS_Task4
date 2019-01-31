@@ -32,7 +32,7 @@ public class HelperClass {
 
 
     public void implicitWait(WebDriver driver){
-        driver.manage().timeouts().implicitlyWait(5,SECONDS);
+        driver.manage().timeouts().implicitlyWait(7,SECONDS);
     }
 
 
@@ -50,15 +50,17 @@ public class HelperClass {
         actions.perform();
     }
 
-
     public void sendKeys(WebElement element, String string){
         element.sendKeys(string);
     }
 
     public void chooseFromList(WebElement cathegory,WebElement element) throws InterruptedException {
         cathegory.click();
+        Thread.sleep(500);
         element.click();
 
     }
+
+
 
 }

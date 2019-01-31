@@ -44,6 +44,7 @@ public class TestClass {
         main.toCreateGroupPage();
         createGroup.groupDetails();
         createGroup.destinationDetails();
+        createGroup.servicesAndNotes();
 
 
     }
