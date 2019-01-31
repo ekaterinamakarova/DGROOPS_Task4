@@ -45,12 +45,12 @@ public class TestClass {
         createGroup.groupDetails();
         createGroup.destinationDetails();
         createGroup.servicesAndNotes();
-
-
+        createGroup.addPartner();
+        createGroup.sendToPartners();
     }
 
     @AfterTest
     public void exit () {
-        //driver.quit();
+        driver.quit();
     }
 }

@@ -1,12 +1,11 @@
 package Pages;
 
 import org.openqa.selenium.*;
+
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
-
-import java.util.List;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -45,9 +44,8 @@ public class HelperClass {
     }
 
     private void scrollToElement(WebElement element){
-        Actions actions=new Actions(driver);
-        actions.moveToElement(element);
-        actions.perform();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("window.scrollBy(0, 250)", element);
     }
 
     public void sendKeys(WebElement element, String string){
@@ -60,6 +58,8 @@ public class HelperClass {
         element.click();
 
     }
+
+
 
 
 

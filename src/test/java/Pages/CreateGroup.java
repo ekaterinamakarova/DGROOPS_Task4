@@ -1,5 +1,7 @@
 package Pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,8 +23,9 @@ public class CreateGroup {
     @FindBy(css="input[id='otherGroupType']")  private WebElement otherGroupType;
     @FindBy(css="input[name='groups.departure']")  private WebElement groupDepartureLocation;
     @FindBy(xpath = "//input[@name='destination.cities[0].countryId']/../..") private WebElement country_1;
+    @FindBy(xpath = "//li[contains(text(),'Australia')]") private WebElement AUSTRALIA;
     @FindBy(xpath = "//input[@name='destination.cities[1].countryId']/../..") private WebElement country_2;
-    @FindBy(xpath = "//li[contains(text(),'Belarus')]") private  WebElement destinationBelarus;
+    @FindBy(xpath = "//li[contains(text(),'Antarctica')]") private  WebElement ANTARCTICA;
     @FindBy(css = "input[name='destination.cities[0].name']") private WebElement city_1;
     @FindBy(css = "input[name='destination.cities[1].name']") private WebElement city_2;
     @FindBy(css="input[name='destination.cities[0].dateRange']") private WebElement CheckInOut_1;
@@ -39,6 +42,15 @@ public class CreateGroup {
     @FindBy(xpath = "//input[@id='services_Boat']/..") private WebElement boat;
     @FindBy(xpath = "//input[@id='services_Guide']/..") private WebElement guide;
     @FindBy(xpath = "//input[@id='services_TourLeader']/..") private WebElement tourLeader;
+    @FindBy(xpath = "//label[contains(text(),'Need other treatments?')]/../div//input") private WebElement otherTreatments;
+    @FindBy(xpath = "//label[contains(text(),'Need other services?')]/../div//input") private WebElement otherServices;
+    @FindBy(xpath = "//label[contains(text(),'Additional comment')]/../div//div//textarea [3]") private WebElement additionalComment;
+    @FindBy(xpath="//span[contains(text(),'ADD PARTNER')]") private WebElement addPartnerBtn;
+    @FindBy(css="tr[class] input") private List<WebElement> allChechboxes;
+    @FindBy(xpath = "//button[2]/span[1][contains(text(),'ADD PARTNER')]") private WebElement addPartnrBtn;
+    @FindBy(css = "button[type='submit']") private WebElement sendToPartnersBtn;
+    @FindBy(xpath = "//tr[2]/td[5]") private List<WebElement> dateStartCells;
+    @FindBy(xpath = "//tr[4]/td[6]") private List<WebElement> dateEndCells;
 
     private String groupDataDirectory = "./src/test/groupData";
 
@@ -66,17 +78,24 @@ public class CreateGroup {
     }
 
     public void destinationDetails() throws InterruptedException, IOException {
-       //helper.chooseFromList(country,destinationBelarus);
-       //Thread.sleep(500);
-       helper.sendKeys(city_1, readerClass.readFromFile(groupDataDirectory,6));
-       //календарь
+        helper.chooseFromList(country_1,AUSTRALIA);
+        Thread.sleep(500);
+        helper.sendKeys(city_1, readerClass.readFromFile(groupDataDirectory,6));
+        CheckInOut_1.click();
+        dateStartCells.get(2).click();
+        dateEndCells.get(2).click();
+        Thread.sleep(100);
         addDestination.click();
-        //страна
+        helper.chooseFromList(country_2,ANTARCTICA);
+        Thread.sleep(500);
         helper.sendKeys(city_2, readerClass.readFromFile(groupDataDirectory,7));
-        //календарь
+        CheckInOut_2.click();
+        dateStartCells.get(2).click();
+        dateEndCells.get(2).click();
+        Thread.sleep(100);
     }
 
-    public void servicesAndNotes(){
+    public void servicesAndNotes() throws IOException, InterruptedException {
         BandB.click();
         halfBoard.click();
         fullBoard.click();
@@ -88,5 +107,25 @@ public class CreateGroup {
         boat.click();
         guide.click();
         tourLeader.click();
+        helper.sendKeys(otherTreatments,readerClass.readFromFile(groupDataDirectory,8));
+        otherTreatments.sendKeys(Keys.ENTER);
+        helper.sendKeys(otherServices,readerClass.readFromFile(groupDataDirectory,9));
+        otherServices.sendKeys(Keys.ENTER);
+        helper.sendKeys(additionalComment,readerClass.readFromFile(groupDataDirectory,10));
     }
+
+    public void addPartner(){
+        addPartnerBtn.click();
+        if(allChechboxes.size()!=0){
+            allChechboxes.get(0).click();
+        }
+        addPartnrBtn.click();
+    }
+
+    public void sendToPartners(){
+        sendToPartnersBtn.click();
+    }
+
+
+
 }
