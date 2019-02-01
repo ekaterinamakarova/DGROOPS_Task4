@@ -1,6 +1,5 @@
 package Pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 import java.util.List;
+
+import static Pages.HelperClass.randomAlpha;
+import static Pages.HelperClass.randomNumber;
 
 public class CreateGroup {
 
@@ -19,7 +21,7 @@ public class CreateGroup {
     @FindBy(css="input[name='groups.guests']")  private WebElement numberOfGuests;
     @FindBy(css="input[name='groups.rooms']")  private WebElement numberOfRooms;
     @FindBy(xpath = "//input[@name='groups.roomBasis']/../div") private WebElement roomBasis;
-    @FindBy(xpath = "//li[contains(text(),'MULTIPLE')]") private WebElement MULTIPLEfield;
+    @FindBy(xpath = "//li[contains(text(),'SINGLE')]") private WebElement SINGLEfield;
     @FindBy(css="input[id='otherGroupType']")  private WebElement otherGroupType;
     @FindBy(css="input[name='groups.departure']")  private WebElement groupDepartureLocation;
     @FindBy(xpath = "//input[@name='destination.cities[0].countryId']/../..") private WebElement country_1;
@@ -52,7 +54,18 @@ public class CreateGroup {
     @FindBy(xpath = "//tr[2]/td[5]") private List<WebElement> dateStartCells;
     @FindBy(xpath = "//tr[4]/td[6]") private List<WebElement> dateEndCells;
 
-    private String groupDataDirectory = "./src/test/groupData";
+    public static final String name = randomAlpha(7);
+    public static final String nationality = randomAlpha(6);
+    public static final String numberGuests = randomNumber(2);
+    public static final String numberRooms = randomNumber(2);
+    public static final String grouptype = randomAlpha(7);
+    public static final String depLocation = randomAlpha(5);
+    public static final String city1= randomAlpha(8);
+    public static final String city2= randomAlpha(6);
+    public static final String treatments= randomAlpha(10);
+    public static final String services = randomAlpha(12);
+    public static final String comment = randomAlpha(20);
+
 
     WebDriver driver;
     public CreateGroup(WebDriver driver){
@@ -60,29 +73,27 @@ public class CreateGroup {
         PageFactory.initElements(driver,this);
 
     }
+
     HelperClass helper = new HelperClass(driver);
-    FileReaderClass readerClass = new FileReaderClass();
-
-
 
     public void groupDetails() throws IOException, InterruptedException {
         helper.implicitWait(driver);
-        helper.sendKeys(groupRequestName,readerClass.readFromFile(groupDataDirectory,0));
-        helper.sendKeys(groupNationality, readerClass.readFromFile(groupDataDirectory,1));
+        helper.sendKeys(groupRequestName,name);
+        helper.sendKeys(groupNationality, nationality);
         helper.chooseFromList(groupType,OTHERfield);
         Thread.sleep(1000);
-        helper.sendKeys(numberOfGuests, readerClass.readFromFile(groupDataDirectory,2));
-        helper.sendKeys(numberOfRooms, readerClass.readFromFile(groupDataDirectory,3));
-        helper.chooseFromList(roomBasis,MULTIPLEfield);
+        helper.sendKeys(numberOfGuests, numberGuests);
+        helper.sendKeys(numberOfRooms,numberRooms);
+        helper.chooseFromList(roomBasis,SINGLEfield);
         Thread.sleep(500);
-        helper.sendKeys(otherGroupType, readerClass.readFromFile(groupDataDirectory,4));
-        helper.sendKeys(groupDepartureLocation, readerClass.readFromFile(groupDataDirectory,5));
+        helper.sendKeys(otherGroupType,grouptype );
+        helper.sendKeys(groupDepartureLocation,depLocation );
     }
 
     public void destinationDetails() throws InterruptedException, IOException {
         helper.chooseFromList(country_1,AUSTRALIA);
         Thread.sleep(500);
-        helper.sendKeys(city_1, readerClass.readFromFile(groupDataDirectory,6));
+        helper.sendKeys(city_1, city1);
         CheckInOut_1.click();
         dateStartCells.get(2).click();
         dateEndCells.get(2).click();
@@ -90,11 +101,12 @@ public class CreateGroup {
         addDestination.click();
         helper.chooseFromList(country_2,ANTARCTICA);
         Thread.sleep(500);
-        helper.sendKeys(city_2, readerClass.readFromFile(groupDataDirectory,7));
+        helper.sendKeys(city_2, city2);
         CheckInOut_2.click();
         dateStartCells.get(2).click();
         dateEndCells.get(2).click();
         Thread.sleep(100);
+
     }
 
     public void servicesAndNotes() throws IOException, InterruptedException {
@@ -109,11 +121,11 @@ public class CreateGroup {
         boat.click();
         guide.click();
         tourLeader.click();
-        helper.sendKeys(otherTreatments,readerClass.readFromFile(groupDataDirectory,8));
+        helper.sendKeys(otherTreatments,treatments);
         otherTreatments.sendKeys(Keys.ENTER);
-        helper.sendKeys(otherServices,readerClass.readFromFile(groupDataDirectory,9));
+        helper.sendKeys(otherServices,services);
         otherServices.sendKeys(Keys.ENTER);
-        helper.sendKeys(additionalComment,readerClass.readFromFile(groupDataDirectory,10));
+        helper.sendKeys(additionalComment,comment);
     }
 
     public void addPartner(){

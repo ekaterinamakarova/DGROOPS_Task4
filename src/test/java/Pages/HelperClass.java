@@ -1,5 +1,6 @@
 package Pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.*;
 
 import org.openqa.selenium.interactions.Actions;
@@ -44,8 +45,9 @@ public class HelperClass {
     }
 
     private void scrollToElement(WebElement element){
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("window.scrollBy(0, 250)", element);
+        Actions actions=new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 
     public void sendKeys(WebElement element, String string){
@@ -57,6 +59,34 @@ public class HelperClass {
         Thread.sleep(500);
         element.click();
 
+    }
+
+    public static String randomNumber(int count) {
+        String digitString = "0123456789";
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int)(Math.random()*digitString.length());
+            builder.append(digitString.charAt(character));
+        }
+        return builder.toString();
+    }
+
+    public static String randomAlpha(int count) {
+        String   alpha_digit= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int)(Math.random()*alpha_digit.length());
+            builder.append(alpha_digit.charAt(character));
+        }
+        return builder.toString();
+    }
+
+    public void assertText(String expected, String actual){
+        Assert.assertEquals(expected,actual);
+    }
+
+    public void assertDisplay(WebElement element){
+        Assert.assertTrue(element.isDisplayed());
     }
 
 

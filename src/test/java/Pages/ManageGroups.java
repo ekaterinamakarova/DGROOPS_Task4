@@ -8,10 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import java.io.IOException;
 
 public class ManageGroups {
-    WebDriver driver;
+
     @FindBy(css = "input[placeholder='Search by keyword']") private WebElement search;
+    @FindBy(css = "div[id='groupsTable'] tbody tr td:nth-of-type(1)") private WebElement resultName;
 
-
+    WebDriver driver;
 
     public ManageGroups(WebDriver driver){
         this.driver=driver;
@@ -19,13 +20,16 @@ public class ManageGroups {
     }
 
     FileReaderClass readerClass = new FileReaderClass();
+    CreateGroup createGroup = new CreateGroup(driver);
     HelperClass helper = new HelperClass(driver);
 
-    private  String groupDataDirectory = "./src/test/groupData";
 
 
-    public void searchGroup() throws IOException {
-        helper.sendKeys(search,readerClass.readFromFile(groupDataDirectory,0));
+    public void searchGroup() throws IOException, InterruptedException {
+        helper.sendKeys(search,createGroup.name);
+        Thread.sleep(1000);
+        resultName.click();
+
 
 
     }

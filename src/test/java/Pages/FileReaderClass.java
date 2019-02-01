@@ -1,7 +1,5 @@
 package Pages;
 
-import Pages.HelperClass;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,9 +8,10 @@ import java.util.List;
 
 public class FileReaderClass {
 
+    private String credentialsDirectory = "./src/credentials";
 
-    public String readFromFile(String file, int k) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+    public String readFromFile(int k) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(credentialsDirectory));
         String line;
         List<String> lines = new ArrayList<String>();
         while ((line = reader.readLine()) != null) {

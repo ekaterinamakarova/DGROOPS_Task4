@@ -15,8 +15,6 @@ public class TestClass {
     private ChromeDriver driver;
 
     FileReaderClass readerClass = new FileReaderClass();
-    private String credentialsDirectory = "./src/credentials";
-
 
 
 
@@ -30,7 +28,7 @@ public class TestClass {
         options.addArguments("start-maximized");
         options.addArguments("--no-sandbox");
         driver = new ChromeDriver(options);
-        driver.get(readerClass.readFromFile(credentialsDirectory,0));
+        driver.get(readerClass.readFromFile(0));
 
     }
 
@@ -39,7 +37,7 @@ public class TestClass {
         Initial initial = new Initial(driver);
         SignIn signIn = new SignIn(driver);
         initial.toSignPage();
-        signIn.signin(readerClass.readFromFile(credentialsDirectory,1), readerClass.readFromFile(credentialsDirectory,2));
+        signIn.signin(readerClass.readFromFile(1),readerClass.readFromFile(2));
     }
 
     @Test(dependsOnMethods = {"login"}, description = "Creation of the group")
@@ -55,12 +53,14 @@ public class TestClass {
     }
 
     @Test(dependsOnMethods = {"createGroup"}, description = "Created group checking")
-    public void checkGroup() throws IOException {
+    public void checkGroup() throws IOException, InterruptedException {
         ManageGroups manageGroups = new ManageGroups(driver);
+        SearchGroupResult searchGroupResult = new SearchGroupResult(driver);
         Initial initial = new Initial(driver);
         initial.toManageGroups();
         manageGroups.searchGroup();
-
+        searchGroupResult.mainFieldsChecking();
+        searchGroupResult.additionalFieldsChecking();
     }
 
     @AfterTest
