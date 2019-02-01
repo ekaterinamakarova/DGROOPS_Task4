@@ -16,9 +16,6 @@ public class TestClass {
 
     FileReaderClass readerClass = new FileReaderClass();
 
-
-
-
     @BeforeTest
     public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
@@ -61,6 +58,13 @@ public class TestClass {
         manageGroups.searchGroup();
         searchGroupResult.mainFieldsChecking();
         searchGroupResult.additionalFieldsChecking();
+    }
+
+    @Test(dependsOnMethods = {"createGroup"}, description = "Checking of the group on the Calendar Notes page")
+    public void checkGroupCalendarNotes(){
+        Initial initial = new Initial(driver);
+        initial.toCalendarNotes();
+
     }
 
     @AfterTest

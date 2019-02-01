@@ -51,8 +51,12 @@ public class CreateGroup {
     @FindBy(css="tr[class] input") private List<WebElement> allChechboxes;
     @FindBy(xpath = "//button[2]/span[1][contains(text(),'ADD PARTNER')]") private WebElement addPartnrBtn;
     @FindBy(css = "button[type='submit']") private WebElement sendToPartnersBtn;
-    @FindBy(xpath = "//tr[2]/td[5]") private List<WebElement> dateStartCells;
-    @FindBy(xpath = "//tr[4]/td[6]") private List<WebElement> dateEndCells;
+//    @FindBy(xpath = "//tr[2]/td[5]") private List<WebElement> dateStartCells;
+//    @FindBy(xpath = "//tr[4]/td[6]") private List<WebElement> dateEndCells;
+
+    @FindBy(css = ".CalendarMonthGrid_month__horizontal_1:nth-of-type(2) strong") private WebElement monthTitle;
+    @FindBy(css = "div[aria-label='Move forward to switch to the next month.']") private WebElement nextBtn;
+    @FindBy(css = ".CalendarMonthGrid_month__horizontal_1:nth-of-type(2) table td") private List<WebElement> dateCells;
 
     public static final String name = randomAlpha(7);
     public static final String nationality = randomAlpha(6);
@@ -75,6 +79,7 @@ public class CreateGroup {
     }
 
     HelperClass helper = new HelperClass(driver);
+    CalendarClass calendar = new CalendarClass(driver);
 
     public void groupDetails() throws IOException, InterruptedException {
         helper.implicitWait(driver);
@@ -95,16 +100,18 @@ public class CreateGroup {
         Thread.sleep(500);
         helper.sendKeys(city_1, city1);
         CheckInOut_1.click();
-        dateStartCells.get(2).click();
-        dateEndCells.get(2).click();
+       // calendar.calendar(monthTitle,"April",nextBtn,dateCells,"15");
+        calendar.calendar(monthTitle,"October",nextBtn,dateCells,"1");
+//        dateStartCells.get(2).click();
+//        dateEndCells.get(2).click();
         Thread.sleep(100);
         addDestination.click();
         helper.chooseFromList(country_2,ANTARCTICA);
         Thread.sleep(500);
         helper.sendKeys(city_2, city2);
         CheckInOut_2.click();
-        dateStartCells.get(2).click();
-        dateEndCells.get(2).click();
+//        dateStartCells.get(2).click();
+//        dateEndCells.get(2).click();
         Thread.sleep(100);
 
     }

@@ -9,6 +9,7 @@ public class Initial {
 
     @FindBy(css = "a[href='/welcome/sign-in']") private WebElement signStr;
     @FindBy(css = "svg[title='Manage Groups']") private WebElement manageGroupsIcon;
+    @FindBy(css="[title='Calendar Notes']") private WebElement calendarNotesIcon;
 
     WebDriver driver;
     public  Initial(WebDriver driver){
@@ -23,6 +24,11 @@ public class Initial {
     public void toManageGroups(){
         manageGroupsIcon.click();
     }
+
+    public void toCalendarNotes(){
+        calendarNotesIcon.click();
+    }
+
 
 
 }

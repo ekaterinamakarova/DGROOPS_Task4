@@ -39,6 +39,13 @@ public class SearchGroupResult {
     @FindBy(css = "div[id='treatment'] span") private WebElement otherTreatmentsTextCell;
     @FindBy(css = "div[id='service'] span") private WebElement otherServiceCell;
     @FindBy(css = "p[id='commentValue']") private WebElement additionalCommentTxtBox;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[1]//div[1]//div[1]//p[1]") private WebElement countryName1;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[2]//div[1]//div[1]//p[1]") private WebElement countryName2;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[1]//div[1]//div[2]//p[1]") private WebElement cityName1;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[2]//div[1]//div[2]//p[1]") private WebElement cityName2;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[1]//span[1]") private WebElement date1;
+    @FindBy(xpath = "//ul[@id='destinationsValue']//li[2]//span[1]") private WebElement date2;
+
 
 
     public void mainFieldsChecking() throws InterruptedException {
@@ -46,11 +53,11 @@ public class SearchGroupResult {
         helper.assertText(CreateGroup.name, groupName.getText());
         helper.assertText(CreateGroup.depLocation, departure.getText());
         helper.assertText(CreateGroup.grouptype, type.getText());
-        if(CreateGroup.numberGuests.substring(1)=="0"){
+        if((CreateGroup.numberGuests.substring(1))=="0"){
             helper.assertText(CreateGroup.numberGuests.substring(2), guests.getText());
         }
         else  helper.assertText(CreateGroup.numberGuests, guests.getText());
-        if(CreateGroup.numberRooms.substring(1)=="0"){
+        if((CreateGroup.numberRooms.substring(1))=="0"){
             helper.assertText(CreateGroup.numberRooms.substring(2), rooms.getText());
         }
         else helper.assertText(CreateGroup.numberRooms, rooms.getText());
@@ -76,5 +83,11 @@ public class SearchGroupResult {
         helper.assertText(CreateGroup.treatments, otherTreatmentsTextCell.getText());
         helper.assertText(CreateGroup.services, otherServiceCell.getText());
         helper.assertText(CreateGroup.comment, additionalCommentTxtBox.getText());
+        helper.assertText("Australia,", countryName1.getText());
+        helper.assertText("Antarctica,", countryName2.getText());
+        helper.assertText(CreateGroup.city1, cityName1.getText());
+        helper.assertText(CreateGroup.city2, cityName2.getText());
+        //date1
+        //date2
     }
 }
