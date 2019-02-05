@@ -100,8 +100,7 @@ public class CreateGroup {
         Thread.sleep(500);
         helper.sendKeys(city_1, city1);
         CheckInOut_1.click();
-       // calendar.calendar(monthTitle,"April",nextBtn,dateCells,"15");
-        calendar.calendar(monthTitle,"October",nextBtn,dateCells,"1");
+         calendar.calendar("March 2019", "2", "March 2019", "7");
 //        dateStartCells.get(2).click();
 //        dateEndCells.get(2).click();
         Thread.sleep(100);
